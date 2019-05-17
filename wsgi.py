@@ -31,6 +31,7 @@ class Info(Resource):
 api.add_resource(Info, '/ws/info/')
 
 def format_result(entries):
+    print("format_result() ... begin()")
     result = []
 
     for entry in entries:
@@ -40,9 +41,9 @@ def format_result(entries):
         data['latitude'] = str(entry['coordinates'][0])
         data['longitude'] = str(entry['coordinates'][1])
         data['name'] = entry['toponymName']
-
+        print(data)
         result.append(data)
-
+    print("format_result() ... end()")
     return result
 
 DATASET_FILE = 'nationalparks.json'
@@ -50,6 +51,7 @@ DATASET_FILE = 'nationalparks.json'
 dataset = []
 
 def load_data(filename):
+    print("load_data() ... begin()")
     global dataset
 
     dataset = []
@@ -57,7 +59,7 @@ def load_data(filename):
     with open(filename, 'r') as fp:
         for data in fp.readlines():
             dataset.append(json.loads(data))
-
+    print("load_data() ... end()")
     return len(dataset)
 
 load_data(DATASET_FILE)
